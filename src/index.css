@@ -7,7 +7,27 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+
+.you{
+  background-color: rgb(43, 43, 221);
+  color: white;
+  padding: .1rem .5rem;
+  font-weight: 700;
+  border-radius: 5px;
+}
+
+.taggedUser{
+  color: rgba(34, 34, 212, 0.842);
+  font-weight: bold;
+  margin-right: .5rem;
+}
+
+.none{
+  display: none;
+}
+
+input{
+  display: block;
+  width: auto;
+  height: auto;
 }
