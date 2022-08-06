@@ -54,8 +54,8 @@ const MainApp = () => {
             score={el.score}
             dateCreate={el.createdAt}
             replies={el.replies}
-            handleUpdateComment={handleUpdateComment}
-            enabledTextArea={enabledTextArea}
+            data={data}
+            setdata={setdata}
           />
         ))}
       <div className="addComment">

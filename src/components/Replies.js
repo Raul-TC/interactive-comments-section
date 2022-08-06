@@ -13,9 +13,13 @@ const Replies = ({
   dateCreate,
   replyingTo,
   content,
-  handleUpdateComment,
+  setAddReply,
+  setReply,
+  updateReplies,
+  deleteComment,
 }) => {
   const [updatebutton, setUpdatebutton] = useState(false);
+  const [replieData, setreplieData] = useState(`@${replyingTo}, ${content}`);
   let userImg;
   if (username === "amyrobson") {
     userImg = amy;
@@ -26,6 +30,7 @@ const Replies = ({
   } else if (username === "juliusomo") {
     userImg = juliusomo;
   }
+
   return (
     <div className="card">
       <div className="score">
@@ -45,34 +50,68 @@ const Replies = ({
             <>
               <span>
                 <img src={iconDelete} alt="iconDelete" />
-                <span>Delete</span>
+                <span onClick={() => deleteComment(id, "replies")}>Delete</span>
               </span>
               <span>
                 <img src={iconEdit} alt="iconEedit" />
                 <span
                   onClick={() => {
-                    setUpdatebutton(true);
-                    handleUpdateComment(id);
+                    updatebutton
+                      ? setUpdatebutton(false)
+                      : setUpdatebutton(true);
+                    // setUpdatebutton(true);
                   }}
                 >
                   Edit
                 </span>
               </span>
             </>
-          ) : null}
+          ) : (
+            <>
+              <img src={iconReply} alt="reply" />
+              <span
+                onClick={() => {
+                  setAddReply(true);
+                  setReply(username);
+                }}
+              >
+                Reply
+              </span>
+            </>
+          )}
         </div>
         <div className="text">
-          <p>
-            <span className="taggedUser">{`@${replyingTo}`}</span>
-            {content}
-          </p>
-          {username === "juliusomo" ? (
+          {updatebutton ? (
             <>
-              <button className={updatebutton ? "update" : "none"}>
-                Update
-              </button>
+              <form
+                onSubmit={(e) => updateReplies(e, id, "replies", replieData)}
+              >
+                <textarea
+                  name=""
+                  id=""
+                  cols="30"
+                  defaultValue={`${content}`}
+                  rows="10"
+                  onChange={(e) => setreplieData(e.target.value)}
+                ></textarea>
+                <button>Send</button>
+              </form>
             </>
-          ) : null}
+          ) : (
+            <>
+              <p>
+                <span className="taggedUser">{`@${replyingTo}`}</span>
+                {content}
+              </p>
+              {username === "juliusomo" ? (
+                <>
+                  <button className={updatebutton ? "update" : "none"}>
+                    Update
+                  </button>
+                </>
+              ) : null}
+            </>
+          )}
         </div>
       </div>
     </div>
