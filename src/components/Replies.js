@@ -1,11 +1,13 @@
-import React, { useState } from "react";
-import iconReply from "../assets/icon-reply.svg";
-import iconDelete from "../assets/icon-delete.svg";
-import iconEdit from "../assets/icon-edit.svg";
-import amy from "../assets/avatars/image-amyrobson.png";
-import juliusomo from "../assets/avatars/image-juliusomo.png";
-import max from "../assets/avatars/image-maxblagun.png";
-import ramses from "../assets/avatars/image-ramsesmiron.png";
+import React, { useContext, useState } from 'react'
+
+import Modal from './Modal'
+import ScoreCounter from './Card/ScoreCounter'
+import MainContext from '../context/MainContext'
+import UserData from './Card/UserData'
+import ActionsButtons from './Card/ActionsButtons'
+
+import AddNewComment from './AddNewComment'
+import CommentBlock from './Card/CommentBlock'
 const Replies = ({
   id,
   score,
@@ -13,109 +15,74 @@ const Replies = ({
   dateCreate,
   replyingTo,
   content,
-  setAddReply,
-  setReply,
-  updateReplies,
-  deleteComment,
+  replies,
+  idContent,
+  vote
 }) => {
-  const [updatebutton, setUpdatebutton] = useState(false);
-  const [replieData, setreplieData] = useState(`@${replyingTo}, ${content}`);
-  let userImg;
-  if (username === "amyrobson") {
-    userImg = amy;
-  } else if (username === "maxblagun") {
-    userImg = max;
-  } else if (username === "ramsesmiron") {
-    userImg = ramses;
-  } else if (username === "juliusomo") {
-    userImg = juliusomo;
-  }
+  const { updateScore } = useContext(MainContext)
+  const [updatebutton, setUpdateButton] = useState(false)
+  const [addReply, setAddReply] = useState(false)
+  const [updateComment, setUpdateComment] = useState('')
+  const [modal, setModal] = useState(false)
 
   return (
-    <div className="card">
-      <div className="score">
-        <button>+</button>
-        {score}
-        <button>-</button>
-      </div>
-      <div className="mainContent">
-        <div className="userData">
-          <img src={userImg} alt="imageUser" />
-          <p>{username}</p>
-          {username === "juliusomo" && <span className="you">you</span>}
-          <span>{dateCreate}</span>
+    <>
+      <div className='card replie'>
+        <div className='desktop'>
+          <ScoreCounter
+            key={id}
+            id={id}
+            score={score}
+            type='replies'
+            idMain={idContent}
+            updateScore={updateScore}
+            vote={vote}
+            replies={replies}
+          />
         </div>
-        <div className="reply">
-          {username === "juliusomo" ? (
-            <>
-              <span>
-                <img src={iconDelete} alt="iconDelete" />
-                <span onClick={() => deleteComment(id, "replies")}>Delete</span>
-              </span>
-              <span>
-                <img src={iconEdit} alt="iconEedit" />
-                <span
-                  onClick={() => {
-                    updatebutton
-                      ? setUpdatebutton(false)
-                      : setUpdatebutton(true);
-                    // setUpdatebutton(true);
-                  }}
-                >
-                  Edit
-                </span>
-              </span>
-            </>
-          ) : (
-            <>
-              <img src={iconReply} alt="reply" />
-              <span
-                onClick={() => {
-                  setAddReply(true);
-                  setReply(username);
-                }}
-              >
-                Reply
-              </span>
-            </>
-          )}
-        </div>
-        <div className="text">
-          {updatebutton ? (
-            <>
-              <form
-                onSubmit={(e) => updateReplies(e, id, "replies", replieData)}
-              >
-                <textarea
-                  name=""
-                  id=""
-                  cols="30"
-                  defaultValue={`${content}`}
-                  rows="10"
-                  onChange={(e) => setreplieData(e.target.value)}
-                ></textarea>
-                <button>Send</button>
-              </form>
-            </>
-          ) : (
-            <>
-              <p>
-                <span className="taggedUser">{`@${replyingTo}`}</span>
-                {content}
-              </p>
-              {username === "juliusomo" ? (
-                <>
-                  <button className={updatebutton ? "update" : "none"}>
-                    Update
-                  </button>
-                </>
-              ) : null}
-            </>
-          )}
-        </div>
-      </div>
-    </div>
-  );
-};
+        <div className='mobile'>
+          <ScoreCounter
+            key={id}
+            type='comment'
+            score={score}
+            id={id}
+            vote={vote}
+            updateScore={updateScore}
+            replies={replies}
+          />
+          <div className='actionComment mobile'>
+            <ActionsButtons username={username} setModal={setModal} updatebutton={updatebutton} setUpdateButton={setUpdateButton} addReply={addReply} setAddReply={setAddReply} />
+          </div>
 
-export default Replies;
+        </div>
+        {/* Desktop */}
+        <div className='containerText'>
+          <div className='userContainer'>
+            <UserData username={username} dateCreate={dateCreate} />
+            <div className='actionComment desktop'>
+              <ActionsButtons username={username} setModal={setModal} updatebutton={updatebutton} setUpdateButton={setUpdateButton} addReply={addReply} setAddReply={setAddReply} />
+            </div>
+          </div>
+          <div className='text'>
+            <CommentBlock type='replies' content={content} replyingTo={replyingTo} updatebutton={updatebutton} id={id} idContent={idContent} updateComment={updateComment.replace(`@${replyingTo}, `, '')} replies={replies} setUpdateButton={setUpdateButton} setUpdateComment={setUpdateComment} />
+          </div>
+        </div>
+        {modal && (
+          <Modal
+            setModal={setModal}
+            id={id}
+            idContent={idContent}
+            type='replies'
+            replies={replies}
+          />
+        )}
+      </div>
+
+      {addReply && (
+        <AddNewComment type='reply' id={idContent} username={username} replies={replies} setAddReply={setAddReply} />
+      )}
+    </>
+  )
+}
+
+export default Replies

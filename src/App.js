@@ -1,12 +1,15 @@
-import "./App.css";
-import MainApp from "./components/MainApp";
+import MainApp from './components/MainApp'
+import { MainProvider } from './context/MainContext'
 
-function App() {
+function App () {
   return (
-    <div>
-      <MainApp />
-    </div>
-  );
+    <>
+      <MainProvider>
+        <MainApp />
+      </MainProvider>
+    </>
+
+  )
 }
 
-export default App;
+export default App

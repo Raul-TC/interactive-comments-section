@@ -1,12 +1,13 @@
-import React, { useState } from "react";
-import iconReply from "../assets/icon-reply.svg";
-import iconDelete from "../assets/icon-delete.svg";
-import iconEdit from "../assets/icon-edit.svg";
-import amy from "../assets/avatars/image-amyrobson.png";
-import juliusomo from "../assets/avatars/image-juliusomo.png";
-import max from "../assets/avatars/image-maxblagun.png";
-import ramses from "../assets/avatars/image-ramsesmiron.png";
-import Replies from "./Replies";
+import React, { useContext, useState } from 'react'
+import Replies from './Replies'
+import Modal from './Modal'
+import ScoreCounter from './Card/ScoreCounter'
+import MainContext from '../context/MainContext'
+import UserData from './Card/UserData'
+import ActionsButtons from './Card/ActionsButtons'
+import AddNewComment from './AddNewComment'
+import CommentBlock from './Card/CommentBlock'
+
 const Comments = ({
   id,
   username,
@@ -14,254 +15,90 @@ const Comments = ({
   score,
   dateCreate,
   replies,
-  enabledTextArea,
-  data,
-  setdata,
+  vote
 }) => {
-  let userImg;
-  if (username === "amyrobson") {
-    userImg = amy;
-  } else if (username === "maxblagun") {
-    userImg = max;
-  } else if (username === "ramsesmiron") {
-    userImg = ramses;
-  } else if (username === "juliusomo") {
-    userImg = juliusomo;
-  }
+  const { updateScore } = useContext(MainContext)
+  // const [updateComment, setUpdateComment] = useState('')
+  const [updatebutton, setUpdateButton] = useState(false)
+  const [addReply, setAddReply] = useState(false)
+  const [modal, setModal] = useState(false)
 
-  const [updateComment, setUpdateComment] = useState("");
-  const [repliesComment, setrepliesComment] = useState(replies);
-  const [updatebutton, setupdatebutton] = useState(false);
-  const [addReply, setAddReply] = useState(false);
-  const [reply, setReply] = useState("");
-  // console.info(data);
-  const updateReplies = (e, ide, type, datos) => {
-    e.preventDefault();
-    if (type === "comment") {
-      const res = data.comments.map((el) => {
-        return el.id === ide
-          ? {
-              ...el,
-              content: updateComment,
-              createdAt: new Date().toLocaleString(),
-            }
-          : el;
-      });
-      let newObjet = {
-        currentUser: data.currentUser,
-        comments: [...res],
-      };
-      setdata(newObjet);
-      setUpdateComment("");
-      setupdatebutton(false);
-    }
-
-    if (type === "replies") {
-      const res = replies.map((el) => {
-        return el.id === ide
-          ? {
-              ...el,
-              content: datos,
-            }
-          : el;
-      });
-
-      const res2 = data.comments.map((el) => {
-        console.info(id);
-        console.info(el);
-        return el.id === id ? { ...el, replies: [...res] } : el;
-      });
-
-      console.info(res2);
-      let newObjet = {
-        currentUser: data.currentUser,
-        comments: [...res2],
-      };
-      setdata(newObjet);
-    }
-  };
-
-  const deleteComment = (ide, type) => {
-    if (type === "comment") {
-      console.info(`Eliminar ${id}`);
-
-      const res = data.comments.filter((el) => el.id !== ide);
-
-      console.info(res);
-
-      let newObjet = {
-        currentUser: data.currentUser,
-        comments: [...res],
-      };
-      setdata(newObjet);
-    } else {
-      const res = replies.filter((el) => el.id !== ide);
-
-      const res2 = data.comments.map((el) =>
-        el.id === id ? { ...el, replies: [...res] } : el
-      );
-
-      console.info(res2);
-      let newObjet = {
-        currentUser: data.currentUser,
-        comments: [...res2],
-      };
-      setdata(newObjet);
-    }
-  };
-
-  const replyComment = (e) => {
-    e.preventDefault();
-    e.target.reset();
-    let newData = {
-      id: crypto.randomUUID(),
-      content: updateComment,
-      createdAt: new Date().toLocaleString(),
-      score: 0,
-      replyingTo: reply,
-      user: {
-        image: { juliusomo },
-        username: "juliusomo",
-      },
-      replies: [],
-    };
-
-    // setrepliesComment([...repliesComment, newData]);
-
-    const res = data.comments.map((el) =>
-      el.id === id
-        ? {
-            ...el,
-            replies: [...replies, newData],
-          }
-        : el
-    );
-
-    let newObjet = {
-      currentUser: data.currentUser,
-      comments: [...res],
-    };
-    setdata(newObjet);
-    setAddReply(false);
-  };
   return (
-    <div className="comm">
-      <div className="card">
-        <div className="score">
-          <button>+</button>
-          {score}
-          <button>-</button>
-        </div>
-        <div className="mainContent">
-          <div className="userData">
-            <img src={userImg} alt="imageUser" />
-            <p>{username}</p>
-            {username === "juliusomo" && <span className="you">you</span>}
-
-            <span>{dateCreate}</span>
-          </div>
-          <div className="reply">
-            {username === "juliusomo" ? (
-              <>
-                <span>
-                  <img src={iconDelete} alt="iconDelete" />
-                  <span onClick={() => deleteComment(id, "comment")}>
-                    Delete
-                  </span>
-                </span>
-                <span>
-                  <img src={iconEdit} alt="iconEedit" />
-                  <span
-                    onClick={() => {
-                      setupdatebutton(true);
-                    }}
-                  >
-                    Edit
-                  </span>
-                </span>
-              </>
-            ) : (
-              <>
-                <img src={iconReply} alt="reply" />
-                <span
-                  onClick={() => {
-                    setAddReply(true);
-                    setReply(username);
-                  }}
-                >
-                  Reply
-                </span>
-              </>
-            )}
-          </div>
-          <div className="text">
-            {updatebutton ? (
-              <>
-                <textarea
-                  name=""
-                  defaultValue={content}
-                  onChange={(e) => setUpdateComment(e.target.value)}
-                  id=""
-                  cols="30"
-                  rows="10"
-                ></textarea>
-              </>
-            ) : (
-              <p>{content}</p>
-            )}
-
-            {username === "juliusomo" ? (
-              <>
-                <button
-                  onClick={(e) => updateReplies(e, id, "comment", "")}
-                  className={updatebutton ? "update" : "none"}
-                >
-                  Update
-                </button>
-              </>
-            ) : null}
-          </div>
-        </div>
-      </div>
-      {addReply ? (
-        <>
-          <div className="addComment">
-            <img src={juliusomo} alt="me" />
-
-            <form onSubmit={(e) => replyComment(e, username)}>
-              <textarea
-                name=""
-                id=""
-                cols="30"
-                rows="10"
-                onChange={(e) => setUpdateComment(e.target.value)}
-              ></textarea>
-              <button>Send</button>
-            </form>
-          </div>
-        </>
-      ) : null}
-      <div className="commentarios">
-        {repliesComment.length > 0 &&
-          repliesComment.map((el) => (
-            <Replies
-              key={crypto.randomUUID()}
-              id={el.id}
-              score={el.score}
-              username={el.user.username}
-              dateCreate={el.createdAt}
-              replyingTo={el.replyingTo}
-              content={el.content}
-              enabledTextArea={enabledTextArea}
-              setAddReply={setAddReply}
-              setReply={setReply}
-              updateReplies={updateReplies}
-              deleteComment={deleteComment}
+    <>
+      <div className='cardContainer'>
+        <div className='card'>
+          <div className='desktop'>
+            <ScoreCounter
+              key={id}
+              type='comment'
+              score={score}
+              id={id}
+              vote={vote}
+              updateScore={updateScore}
+              replies={replies}
             />
-          ))}
-      </div>
-    </div>
-  );
-};
+          </div>
+          <div className='mobile'>
+            <ScoreCounter
+              key={id}
+              type='comment'
+              score={score}
+              id={id}
+              vote={vote}
+              updateScore={updateScore}
+              replies={replies}
+            />
+            <div className='actionComment mobile'>
+              <ActionsButtons username={username} setModal={setModal} updatebutton={updatebutton} setUpdateButton={setUpdateButton} addReply={addReply} setAddReply={setAddReply} />
+            </div>
 
-export default Comments;
+          </div>
+          {/* Desktop */}
+          <div className='containerText'>
+            <div className='userContainer'>
+              <UserData username={username} replies={replies} dateCreate={dateCreate} />
+              <div className='actionComment desktop'>
+                <ActionsButtons username={username} setModal={setModal} updatebutton={updatebutton} setUpdateButton={setUpdateButton} addReply={addReply} setAddReply={setAddReply} />
+              </div>
+            </div>
+            <div className='text'>
+              <CommentBlock type='comment' content={content} replyingTo='' updatebutton={updatebutton} id={id} idContent={id} replies={replies} setUpdateButton={setUpdateButton} />
+            </div>
+          </div>
+        </div>
+        {addReply && (
+          <AddNewComment type='comments' id={id} username={username} replies={replies} setAddReply={setAddReply} />
+        )}
+        <div className='commentarios'>
+          {replies.length > 0 &&
+            replies.map((el) => (
+              <Replies
+                key={el.id}
+                id={el.id}
+                score={el.score}
+                username={el.user.username}
+                dateCreate={el.createdAt}
+                replyingTo={el.replyingTo}
+                content={el.content}
+                replies={replies}
+                idContent={id}
+                vote={el.vote}
+              />
+            ))}
+        </div>
+      </div>
+
+      {modal && (
+        <Modal
+          id={id}
+          setModal={setModal}
+          replies={replies}
+          idContent={id}
+          type='comment'
+        />
+      )}
+    </>
+  )
+}
+
+export default Comments

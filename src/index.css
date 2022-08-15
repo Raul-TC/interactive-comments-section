@@ -1,33 +1,602 @@
-body {
+*,
+*::before,
+*::after {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
 }
 
+:root {
+  --font: 'Rubik', sans-serif;
+  --font-400: 400;
+  --font-500: 500;
+  --font-700: 700;
+  --background-body: hsl(223, 19%, 93%);
+  --background-card: hsl(0, 0%, 100%);
+  --button-blue: hsl(238, 40%, 52%);
+  --button-cancel: hsl(211, 10%, 45%);
+  --button-delete: hsl(358, 79%, 66%);
+  --button-delete-hover: hsl(357, 100%, 86%);
+  --background-counter: hsl(239, 57%, 85%);
+  --text: hsl(223, 19%, 93%);
+  --button-counter-color: hsl(223, 19%, 93%);
+  --color-user: hsl(212, 24%, 26%);
+}
 
-.you{
-  background-color: rgb(43, 43, 221);
-  color: white;
-  padding: .1rem .5rem;
+body {
+  font-family: var(--font);
+  font-size: 16px;
+  background-color: var(--background-body);
+}
+
+.contentMain {
+  max-width: 46rem;
+  display: flex;
+  min-height: 100vh;
+  align-items: center;
+  flex-direction: column;
+  margin: 0 auto;
+  /* padding: 4rem 0; */
+  margin: 2.5rem auto;
+}
+
+.cardContainer {
+  display: block;
+  margin-bottom: 1rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+
+.card {
+  display: flex;
+  height: 100%;
+  border-radius: 10px;
+  flex-direction: row;
+  align-items: flex-start;
+  background-color: var(--background-card);
+  /* margin-bottom: 1rem; */
+  animation: come-in 1s ease-in
+}
+
+.mt {
+  margin-top: 1rem;
+}
+
+.score {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--background-body);
+  text-align: center;
+  font-size: 1.3rem;
+  color: var(--button-blue);
+  font-weight: var(--font-500);
+  margin: 1.5rem;
+  padding: .2rem;
+  border-radius: 12px;
+}
+
+.score button {
+  background-color: var(--background-body);
+  border: none;
+  padding: .7rem 1rem;
+  font-size: 1.3rem;
+  cursor: pointer;
+  color: var(--background-counter);
+}
+
+.score .actiPapi {
+  color: var(--button-blue);
+
+}
+
+.score button:hover {
+  color: var(--button-action-hover);
+  transition: color .3s ease;
+}
+
+.userContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  margin-top: 2rem;
+}
+
+.containerText {
+  margin-right: 2rem;
+  width: 100%;
+}
+
+.userData {
+  display: flex;
+  align-items: center;
+}
+
+.userData p {
+  margin: 0 1rem;
+}
+
+.userData img,
+.me-img {
+  width: 2.9rem;
+}
+
+.me-img {
+  margin: 0 1.7rem 0 2rem;
+}
+
+.user {
   font-weight: 700;
+  color: var(--color-user);
+  font-size: 1.1rem;
+}
+
+.date {
+  color: var(--button-cancel);
+}
+
+.actionComment {
+  display: flex;
+  align-items: center;
+  justify-content: center
+}
+
+.actionComment button {
+  border: none;
+}
+
+.deleteComment,
+.editComment {
+  cursor: pointer;
+}
+
+.deleteComment span {
+  margin-right: 1rem;
+  font-size: 1.05rem;
+  font-weight: var(--font-700);
+  color: var(--button-delete);
+}
+
+.editComment span {
+  font-weight: var(--font-700);
+  font-size: 1.05rem;
+  color: var(--button-blue);
+}
+
+.deleteComment span,
+.editComment span {
+  margin-left: .25rem;
+}
+
+.deleteComment:hover,
+.editComment:hover,
+.rep:hover {
+  opacity: .5;
+  transition: .2s ease-in;
+}
+
+.deleteComment,
+.editComment {
+  background-color: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.replie {
+  margin: 1rem 0 1rem 3rem;
+}
+
+.text {
+  color: var(--button-cancel);
+}
+
+.text button {
+  background-color: var(--button-blue);
+  color: var(--background-card);
+  padding: .5rem 1rem;
+  border: none;
   border-radius: 5px;
 }
 
-.taggedUser{
+.rep {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+
+.rep span {
+  margin-left: .5rem;
+  font-size: 1.05rem;
+  color: var(--button-blue);
+  font-weight: var(--font-700);
+
+}
+
+.commentarios {
+  border-left: 2px solid var(--background-counter);
+  margin-left: 3rem;
+}
+
+form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  text-align: center;
+  height: 80px;
+}
+
+textarea {
+  resize: none;
+  width: 90%;
+  height: 100%;
+  border-radius: 10px;
+  padding: .5rem 1rem;
+  color: var(--color-user);
+  font-family: var(--font);
+  border-color: var(--color-user);
+  font-size: 1.03rem;
+  outline: none;
+}
+
+
+.containerAddComment {
+  width: 100%;
+}
+
+.card .containerAddComment .desktop {
+  display: flex;
+  width: 100%;
+  padding: 2rem 0;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.replie-update {
+  width: 100%;
+  height: auto;
+  flex-direction: column;
+}
+
+.replie-update textarea {
+  width: 100%;
+  height: 80px;
+  margin-bottom: 1rem;
+}
+
+.replie-update button {
+  align-self: flex-end;
+  margin-bottom: 1rem;
+  cursor: pointer;
+  padding: 1rem 1.5rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+button:disabled,
+.replie-update button:disabled {
+  background-color: var(--button-cancel);
+  cursor: no-drop;
+}
+
+
+.you {
+  background-color: var(--button-blue);
+  text-align: center;
+  line-height: 22.19px;
+  color: var(--background-card);
+  padding: .1rem .5rem;
+  font-weight: 700;
+  border-radius: 5px;
+  margin-right: 1rem;
+}
+
+.update,
+.replyButton,
+.text button {
+  background-color: var(--button-blue);
+  border: none;
+  border-radius: 8px;
+  padding: 1rem 1.5rem;
+  color: var(--background-card);
+  font-weight: 700;
+  font-size: 1.05rem;
+  cursor: pointer;
+
+}
+
+.replyButton {
+  margin-left: 1rem;
+  align-self: flex-start;
+  margin-right: 2rem;
+}
+
+.taggedUser {
   color: rgba(34, 34, 212, 0.842);
   font-weight: bold;
   margin-right: .5rem;
 }
 
-.none{
+.none {
   display: none;
 }
 
-input{
+input {
   display: block;
   width: auto;
   height: auto;
+}
+
+.modalContainer {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  place-content: center;
+  place-items: center;
+  background-color: hsla(180, 1%, 24%, 0.315);
+}
+
+.card.replie {
+  animation: come-in 1.5s ease-in
+}
+
+.modal {
+  position: absolute;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  place-content: center;
+  place-items: center;
+  background-color: hsl(0, 0%, 100%);
+  padding: 2rem;
+  width: 20rem;
+}
+
+.modal p {
+  color: hsl(211, 10%, 45%);
+  font-weight: 400;
+}
+
+.cancel,
+.delete {
+  border: none;
+  color: hsl(0, 0%, 100%);
+  padding: .5rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.cancel {
+  background-color: hsl(211, 10%, 45%);
+  margin-right: .8rem;
+}
+
+.delete {
+  background-color: hsl(358, 79%, 66%);
+}
+
+
+.mobile {
+  display: none;
+}
+
+@keyframes come-in {
+  0% {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+
+  75% {
+    opacity: 0;
+    transform: translateY(-50%);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media screen and (max-width:726px) {
+  .card .containerAddComment .desktop {
+    display: none;
+  }
+
+  .desktop {
+    display: none;
+  }
+
+  .contentMain {
+    max-width: 100%;
+  }
+
+  .cardContainer {
+    width: 95%;
+  }
+
+  .card {
+    flex-direction: column-reverse;
+
+    padding: 1rem;
+  }
+
+  .userContainer {
+    justify-content: space-between;
+  }
+
+  .card .mobile {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .actionComment.mobile {
+    margin: 0;
+    width: auto;
+  }
+
+  .mobile {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+  }
+
+  .containerAddComment {
+    width: 100%;
+    height: auto;
+  }
+
+  .containerAddComment .mobile {
+    margin: 0;
+  }
+
+  .mobile form {
+    flex-direction: column;
+    width: 100%;
+    margin: .5rem 0;
+    height: auto;
+  }
+
+  .userContainer {
+    margin-top: 0;
+    margin-left: 0;
+  }
+
+  .text {
+    margin-left: 0;
+  }
+
+  .mobile form textarea {
+    width: 100%;
+    height: 100px;
+  }
+
+  .commentarios {
+    margin-left: 0;
+  }
+
+  .card.replie {
+    margin-left: .8rem;
+  }
+
+  .mobile .score {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+  }
+
+  .mobile form .bottom {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: .5rem 0;
+  }
+}
+
+@media screen and (max-width:440px) {
+
+  .desktop {
+    display: none;
+  }
+
+  /* .mobile {
+    display: flex;
+  } */
+
+  .contentMain {
+    max-width: 100%;
+  }
+
+  .cardContainer {
+    width: 95%;
+  }
+
+  .card {
+    flex-direction: column-reverse;
+    padding: 1rem;
+  }
+
+
+  .mobile {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+  }
+
+  .mobile .score {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+  }
+
+  .userContainer {
+    margin-top: 0;
+    margin-left: 0;
+  }
+
+  .text {
+    margin-left: 0;
+  }
+
+  .actionComment {
+    margin: 0;
+    width: auto;
+  }
+
+  .commentarios {
+    margin-left: 0;
+  }
+
+  .card.replie {
+    margin-left: .8rem;
+  }
+
+
+  .date {
+    font-size: .90rem;
+  }
+
+  .containerAddComment {
+    width: 100%;
+    height: auto;
+  }
+
+  .containerAddComment .mobile {
+    margin: 0;
+  }
+
+  .mobile form {
+    flex-direction: column;
+    width: 100%;
+    margin: .5rem 0;
+    height: auto;
+  }
+
+  .mobile form textarea {
+    width: 100%;
+    height: 100px;
+  }
+
+  .mobile form .bottom {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: .5rem 0;
+  }
 }
