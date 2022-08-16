@@ -14,7 +14,7 @@
 src/screen_app.png
 # misc
 
-/.vscode
+./.vscode
 
 .DS_Store
 .env.local
