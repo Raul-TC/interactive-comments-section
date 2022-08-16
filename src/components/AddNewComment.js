@@ -35,7 +35,7 @@ const AddNewComment = ({ type, id, username, replies, setAddReply }) => {
             validateData(e)
           }}
           >
-            <textarea name='' id='' defaultValue={type === 'reply' || type === 'comments' ? `@${username} ` : ''} placeholder='Add a comment' onChange={(e) => setAddComment(e.target.value)} />
+            <textarea defaultValue={type === 'reply' || type === 'comments' ? `@${username} ` : ''} placeholder='Add a comment' onChange={(e) => setAddComment(e.target.value)} />
             {addComment.replace(`@${username}`, '') === '' ? <><button disabled className='replyButton'>{type === 'reply' ? 'REPLY' : 'SEND'}</button></> : <><button className='replyButton'>{type === 'reply' ? 'REPLY' : 'SEND'}</button></>}
           </form>
         </div>
@@ -44,7 +44,7 @@ const AddNewComment = ({ type, id, username, replies, setAddReply }) => {
             validateData(e)
           }}
           >
-            <textarea name='' id='' defaultValue={type === 'reply' || type === 'comments' ? `@${username} ` : ''} placeholder='Add a comment' onChange={(e) => setAddComment(e.target.value)} />
+            <textarea defaultValue={type === 'reply' || type === 'comments' ? `@${username} ` : ''} placeholder='Add a comment' onChange={(e) => setAddComment(e.target.value)} />
             <div className='bottom'>
               <img src={userImage('juliusomo')} alt='me' className='me-img' />
               {addComment.replace(`@${username}`, '') === '' ? <><button disabled className='replyButton'>{type === 'reply' ? 'REPLY' : 'SEND'}</button></> : <><button className='replyButton'>{type === 'reply' ? 'REPLY' : 'SEND'}</button></>}

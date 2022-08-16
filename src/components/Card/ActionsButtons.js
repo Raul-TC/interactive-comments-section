@@ -22,7 +22,7 @@ const ActionsButtons = ({ username, setModal, updatebutton, setUpdateButton, add
                   ? setUpdateButton(false)
                   : setUpdateButton(true)}
             >
-              <img src={iconEdit} alt='iconEedit' className='' />
+              <img src={iconEdit} alt='iconEdit' />
               <span>Edit</span>
             </button>
           </>

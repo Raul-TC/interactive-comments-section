@@ -67,7 +67,6 @@ const CommentBlock = ({ type, content, replyingTo, updatebutton, id, idContent, 
             <p>
               <span className='taggedUser'>
                 {replyingTo === '' ? '' : `@${replyingTo}`}
-                {/* @{replyingTo} */}
               </span>
               <span className='comment'>{content}</span>
             </p>

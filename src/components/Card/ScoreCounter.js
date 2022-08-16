@@ -33,7 +33,7 @@ const ScoreCounter = ({ id, score, type, idMain, vote, replies }) => {
       <button onClick={counterScorePlus} className={voted ? 'actiPapi' : null}>
         +
       </button>
-      <span className=''>{counter}</span>
+      <span>{counter}</span>
       <button onClick={counterScoreMinus}>-</button>
     </div>
   )
