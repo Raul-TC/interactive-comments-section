@@ -26,6 +26,7 @@ body {
   font-family: var(--font);
   font-size: 16px;
   background-color: var(--background-body);
+  scroll-behavior: smooth;
 }
 
 .contentMain {
@@ -353,26 +354,42 @@ input {
   border-radius: 15px;
   display: flex;
   flex-direction: column;
-  place-content: center;
-  place-items: center;
+  place-content: start;
+  place-items: start;
   background-color: hsl(0, 0%, 100%);
-  padding: 2rem;
-  width: 20rem;
+  padding: 1.8rem;
+  width: 23rem;
 }
 
 .modal p {
   color: hsl(211, 10%, 45%);
   font-weight: 400;
+  margin: 1rem 0 1rem;
+}
+
+.modal h1 {
+  color: var(--color-user);
+  font-weight: 700;
+  font-size: 1.5rem;
+}
+
+
+.modal div {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 }
 
 .cancel,
 .delete {
   border: none;
   color: hsl(0, 0%, 100%);
-  padding: .5rem 1rem;
+  padding: 1rem 1rem;
   border-radius: 5px;
   cursor: pointer;
   font-weight: 700;
+  width: 50%;
+  font-size: 1rem;
 }
 
 .cancel {
@@ -598,5 +615,17 @@ input {
     justify-content: space-between;
     align-items: center;
     margin: .5rem 0;
+  }
+
+  .modal h1 {
+    color: var(--color-user);
+    font-weight: 700;
+    font-size: 1.5rem;
+  }
+
+  .cancel,
+  .delete {
+    font-size: 1rem;
+    font-weight: bold;
   }
 }
