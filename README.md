@@ -1,8 +1,5 @@
-# Interactive comments section _FrontendMentor_
+# Interactive comments section | _FrontendMentor_
 
-
-link challenge: https://www.frontendmentor.io/challenges/interactive-comments-section-iG1RugEG9
-link demo: https://interactive-commentss.netlify.app/
 
 
 ### Screenshot
@@ -11,7 +8,7 @@ link demo: https://interactive-commentss.netlify.app/
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
+- Solution URL: [https://www.frontendmentor.io/solutions/interactive-comment-section-react-react-context-GWkN4Iyx8P](https://www.frontendmentor.io/solutions/interactive-comment-section-react-react-context-GWkN4Iyx8P)
 - Live Site URL: [https://interactive-commentss.netlify.app/](https://interactive-commentss.netlify.app/)
 
 ```js
