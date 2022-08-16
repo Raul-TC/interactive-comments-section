@@ -34,7 +34,7 @@ const ActionsButtons = ({ username, setModal, updatebutton, setUpdateButton, add
                 addReply ? setAddReply(false) : setAddReply(true)}
               className='rep'
             >
-              <img src={iconReply} alt='reply' />
+              <img src={iconReply} alt='iconReply' />
               <span>Reply</span>
             </button>
           </>
