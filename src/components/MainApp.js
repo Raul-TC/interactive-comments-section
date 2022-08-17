@@ -7,7 +7,7 @@ const MainApp = () => {
   const { data } = useContext(MainContext)
   return (
 
-    <main className='contentMain'>
+    <div className='contentMain'>
       {data.length !== 0 &&
         data.comments.map((el) => (
           <Comments
@@ -22,7 +22,7 @@ const MainApp = () => {
           />
         ))}
       <AddNewComment />
-    </main>
+    </div>
 
   )
 }

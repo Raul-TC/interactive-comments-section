@@ -32,20 +32,21 @@ const Replies = ({
           <ScoreCounter
             key={id}
             id={id}
+            idMain={idContent}
             score={score}
             type='replies'
-            idMain={idContent}
-            updateScore={updateScore}
             vote={vote}
+            updateScore={updateScore}
             replies={replies}
           />
         </div>
         <div className='mobile'>
           <ScoreCounter
             key={id}
-            type='comment'
-            score={score}
             id={id}
+            idMain={idContent}
+            score={score}
+            type='replies'
             vote={vote}
             updateScore={updateScore}
             replies={replies}

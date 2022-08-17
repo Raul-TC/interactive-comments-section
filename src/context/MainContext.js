@@ -174,6 +174,7 @@ const MainProvider = ({ children }) => {
   }, [])
 
   localStorage.setItem('comments', JSON.stringify(data))
+
   const dataSend = { data, setdata, updateScore, updateReplies, deleteComment, addNewComment }
 
   return (

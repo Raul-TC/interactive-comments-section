@@ -266,7 +266,7 @@ textarea {
 
 .replie-update textarea {
   width: 100%;
-  height: 80px;
+  height: 110px;
   margin-bottom: 1rem;
 }
 
@@ -309,6 +309,12 @@ button:disabled,
   font-size: 1.05rem;
   cursor: pointer;
 
+}
+
+.update:hover,
+.replyButton:hover {
+  opacity: .5;
+  animation: all .3s ease;
 }
 
 .replyButton {
@@ -354,8 +360,8 @@ input {
   border-radius: 15px;
   display: flex;
   flex-direction: column;
-  place-content: start;
-  place-items: start;
+  place-content: flex-start;
+  place-items: flex-start;
   background-color: hsl(0, 0%, 100%);
   padding: 1.8rem;
   width: 23rem;
